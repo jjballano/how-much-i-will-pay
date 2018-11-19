@@ -65,5 +65,5 @@ tasks.stage.doLast() {
     delete fileTree(dir: "build/assetCompile")
     delete fileTree(dir: "build/distributions")
     println fileTree(dir: "build/libs").dir.list()*.toLowerCase()
-    //delete fileTree(dir: "build/libs", exclude: "*all.jar")
+    delete fileTree(dir: "build/libs", exclude: "*all.jar")
 }
