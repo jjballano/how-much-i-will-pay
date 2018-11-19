@@ -10,6 +10,10 @@ Esto es un pet project para jugar un poco con lo básico de Micronaut.
 
 Para probarlo, se puede hacer un clone, levantarlo con <code>./gradlew run</code> y lanzar un <code>get</code> a <code>http://localhost:8080/howmuch?city=[CIUDAD]&revenue=[INGRESOS]&expenses=[GASTOS]</code>
 
+También se puede probar en la versión instalada en heroku:
+
+<code>https://jjballano-howmuch.herokuapp.com/howmuch?city=madrid&revenue=5432.10&expenses=123.45</code>
+
 Los ingresos son la suma de todas las facturas sin IVA y sin retención. Los gastos también sin IVA.
 
 
