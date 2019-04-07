@@ -1,5 +1,5 @@
-profile: service
-defaultPackage: com.jjballano.howmuch
+profile: function-aws
+defaultPackage: com.kiakora
 ---
-testFramework: spock
-sourceLanguage: groovy
+testFramework: junit
+sourceLanguage: java
