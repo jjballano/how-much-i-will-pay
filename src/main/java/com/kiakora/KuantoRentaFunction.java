@@ -17,11 +17,13 @@ public class KuantoRentaFunction extends FunctionInitializer implements Function
     private final TaxesCalculationsService taxesCalculationsService;
 
     public KuantoRentaFunction(TaxesCalculationsService taxesCalculationsService) {
+        LOG.info("Function created");
         this.taxesCalculationsService = taxesCalculationsService;
     }
 
     @Override
     public KuantoRentaResponse apply(KuantoRentaRequest request) {
+        LOG.info("Function requested for region "+request.getRegion());
         return taxesCalculationsService.calculate(request);
     }
 

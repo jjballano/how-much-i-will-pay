@@ -1,4 +1,4 @@
-FROM oracle/graalvm-ce:1.0.0-rc13 as graalvm
+FROM oracle/graalvm-ce:1.0.0-rc14 as graalvm
 COPY . /home/app/kuanto-renta
 WORKDIR /home/app/kuanto-renta
 RUN native-image --no-server -cp build/libs/kuanto-renta-*.jar

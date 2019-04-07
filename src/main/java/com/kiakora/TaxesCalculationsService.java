@@ -39,7 +39,7 @@ public class TaxesCalculationsService {
     private BigDecimal calculateFor(KuantoRentaRequest request, String region) {
         Optional<TaxTableConfiguration> taxTableConfiguration = applicationContext.findBean(TaxTableConfiguration.class, Qualifiers.byName(region.toLowerCase()));
 
-        if (taxTableConfiguration.isEmpty()){
+        if (!taxTableConfiguration.isPresent()){
             return new BigDecimal(0);
         }
         TaxTableConfiguration.TaxTable taxTable = taxTableConfiguration.get().getTaxTable();
