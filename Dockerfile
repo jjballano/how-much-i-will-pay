@@ -1,4 +1,9 @@
-FROM openjdk:8u171-alpine3.7
-RUN apk --no-cache add curl
-COPY build/libs/*-all.jar how-much-i-will-pay.jar
-CMD java ${JAVA_OPTS} -jar how-much-i-will-pay.jar
+FROM oracle/graalvm-ce:1.0.0-rc14 as graalvm
+COPY . /home/app/kuanto-renta
+WORKDIR /home/app/kuanto-renta
+RUN native-image --no-server -cp build/libs/kuanto-renta-*.jar
+
+FROM frolvlad/alpine-glibc
+EXPOSE 8080
+COPY --from=graalvm /home/app/kuanto-renta .
+ENTRYPOINT ["./kuanto-renta"]
