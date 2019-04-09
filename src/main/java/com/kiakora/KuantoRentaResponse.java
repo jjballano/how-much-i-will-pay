@@ -2,6 +2,7 @@ package com.kiakora;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class KuantoRentaResponse implements Serializable {
 
@@ -26,7 +27,7 @@ public class KuantoRentaResponse implements Serializable {
     }
 
     public BigDecimal getTotalToPay() {
-        return totalToPay;
+        return totalToPay.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setTotalToPay(BigDecimal totalToPay) {
@@ -34,7 +35,7 @@ public class KuantoRentaResponse implements Serializable {
     }
 
     public BigDecimal getAlreadyPaid130() {
-        return alreadyPaid130;
+        return alreadyPaid130.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setAlreadyPaid130(BigDecimal alreadyPaid130) {
@@ -42,7 +43,7 @@ public class KuantoRentaResponse implements Serializable {
     }
 
     public BigDecimal getPendingToPaid() {
-        return pendingToPaid;
+        return pendingToPaid.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setPendingToPaid(BigDecimal pendingToPaid) {
@@ -50,7 +51,7 @@ public class KuantoRentaResponse implements Serializable {
     }
 
     public BigDecimal getProfit() {
-        return profit;
+        return profit.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setProfit(BigDecimal profit) {
@@ -58,7 +59,7 @@ public class KuantoRentaResponse implements Serializable {
     }
 
     public BigDecimal getTaxRatePaid() {
-        return taxRatePaid;
+        return taxRatePaid.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setTaxRatePaid(BigDecimal taxRatePaid) {
