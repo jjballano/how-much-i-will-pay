@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Serverless Micronaut API - kuanto-renta::kuanto-renta
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+Resources:
+  KuantoRentaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: not.used.in.provided.runtime
+      Runtime: provided
+      CodeUri: build/function.zip
+      MemorySize: 128
+      Policies: AWSLambdaBasicExecutionRole
+      Timeout: 15
+      Events:
+        GetResource:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+#        CalculateRenta:
+#          Type: Api
+#          Properties:
+#            Path: /
+#            Method: POST
+
+
+
+Outputs:
+  KuantoRentaApi:
+    Description: URL for application
+    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping'
+    Export:
+      Name: KuantoRentaApi

@@ -1,15 +1,13 @@
 package com.kiakora;
 
-import io.micronaut.function.client.FunctionClient;
 import io.micronaut.http.annotation.Body;
-import io.reactivex.Single;
+import io.micronaut.http.annotation.Post;
+import io.micronaut.http.client.annotation.Client;
 
-import javax.inject.Named;
-
-@FunctionClient
+@Client("/kuanto-renta")
 public interface KuantoRentaClient {
 
-    @Named("kuanto-renta")
-    Single<KuantoRentaResponse> apply(@Body KuantoRentaRequest body);
+    @Post()
+    KuantoRentaResponse apply(@Body KuantoRentaRequest request);
 
 }
