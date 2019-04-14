@@ -22,7 +22,7 @@ public class KuantoRentaControllerTest {
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
-        assertEquals(7400, client.calculate(body).getAlreadyPaid130().doubleValue());
+        assertEquals(7400, client.apply(body).getAlreadyPaid130().doubleValue());
     }
 
     @Test
@@ -31,7 +31,7 @@ public class KuantoRentaControllerTest {
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
-        assertEquals(7490.77, client.calculate(body).getTotalToPay().doubleValue());
+        assertEquals(7490.77, client.apply(body).getTotalToPay().doubleValue());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class KuantoRentaControllerTest {
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
-        assertEquals(29509.23, client.calculate(body).getProfit().doubleValue());
+        assertEquals(29509.23, client.apply(body).getProfit().doubleValue());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class KuantoRentaControllerTest {
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
-        assertEquals(90.77, round(client.calculate(body).getPendingToPaid()));
+        assertEquals(90.77, round(client.apply(body).getPendingToPaid()));
     }
 
 
@@ -59,7 +59,7 @@ public class KuantoRentaControllerTest {
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
-        assertEquals(20.25, round(client.calculate(body).getTaxRatePaid()));
+        assertEquals(20.25, round(client.apply(body).getTaxRatePaid()));
     }
 
     private double round(BigDecimal pendingToPaid) {

@@ -1,5 +1,5 @@
 micronaut:
-    application:
+    function:
         name: kuanto-renta
 
 irpf:

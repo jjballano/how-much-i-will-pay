@@ -1,4 +1,4 @@
-profile: service
+profile: function-aws
 defaultPackage: com.kiakora
 ---
 testFramework: junit

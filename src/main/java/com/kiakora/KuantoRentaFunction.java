@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.function.Function;
 
-@FunctionBean("kuanto")
+@FunctionBean("kuanto-renta")
 public class KuantoRentaFunction extends FunctionInitializer implements Function<KuantoRentaRequest, KuantoRentaResponse> {
 
     private static final Logger LOG = LoggerFactory.getLogger(KuantoRentaFunction.class);
@@ -21,8 +21,9 @@ public class KuantoRentaFunction extends FunctionInitializer implements Function
     @Inject
     private TaxesCalculationsService taxesCalculationsService;
 
+    @Override
     public KuantoRentaResponse apply(KuantoRentaRequest request) {
-        LOG.error("Function requested for region "+request.getRegion());
+        LOG.info("Function requested for region "+request.getRegion());
         return taxesCalculationsService.calculate(request);
     }
 
