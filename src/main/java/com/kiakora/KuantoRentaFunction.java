@@ -2,10 +2,6 @@ package com.kiakora;
 
 import io.micronaut.function.FunctionBean;
 import io.micronaut.function.executor.FunctionInitializer;
-import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Post;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
