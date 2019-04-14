@@ -8,29 +8,24 @@ Resources:
   KuantoRentaFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: not.used.in.provided.runtime
+      Handler: function.handler
       Runtime: provided
       CodeUri: build/function.zip
       MemorySize: 128
       Policies: AWSLambdaBasicExecutionRole
       Timeout: 15
       Events:
-        GetResource:
+        CalculateRenta:
           Type: Api
           Properties:
-            Path: /{proxy+}
-            Method: any
-#        CalculateRenta:
-#          Type: Api
-#          Properties:
-#            Path: /
-#            Method: POST
+            Path: /kuantorenta
+            Method: POST
 
 
 
 Outputs:
   KuantoRentaApi:
     Description: URL for application
-    Value: !Sub 'https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/ping'
+    Value: !Sub 'https://${KuantoRentaFunction}.execute-api.${AWS::Region}.amazonaws.com/Prod/kuantorenta'
     Export:
       Name: KuantoRentaApi
