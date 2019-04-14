@@ -1,9 +1,12 @@
 package com.kiakora;
 
+import io.micronaut.core.annotation.Introspected;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Introspected
 public class KuantoRentaResponse implements Serializable {
 
     private BigDecimal totalToPay;

@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.function.Function;
 
 @FunctionBean("kuanto-renta")
@@ -32,7 +31,6 @@ public class KuantoRentaFunction extends FunctionInitializer implements Function
         KuantoRentaFunction function = new KuantoRentaFunction();
         function.run(args, (context)-> function.apply(context.get(KuantoRentaRequest.class)));
     }
-
 
 }
 

@@ -1,8 +1,11 @@
 package com.kiakora;
 
+import io.micronaut.core.annotation.Introspected;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@Introspected
 public class KuantoRentaRequest implements Serializable {
 
     private String region;
