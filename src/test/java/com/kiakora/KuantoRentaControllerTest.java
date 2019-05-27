@@ -19,6 +19,7 @@ public class KuantoRentaControllerTest {
     @Test
     public void returnsTheTaxesAlreadyPaid() throws Exception {
         KuantoRentaRequest body = new KuantoRentaRequest();
+        body.setYear(2018);
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
@@ -28,6 +29,7 @@ public class KuantoRentaControllerTest {
     @Test
     public void returnsTheTotalToPayBasedOnRegion() throws Exception {
         KuantoRentaRequest body = new KuantoRentaRequest();
+        body.setYear(2018);
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
@@ -37,6 +39,7 @@ public class KuantoRentaControllerTest {
     @Test
     public void returnsTheTotalBenefitsBasedOnRegion() throws Exception {
         KuantoRentaRequest body = new KuantoRentaRequest();
+        body.setYear(2018);
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
@@ -46,6 +49,7 @@ public class KuantoRentaControllerTest {
     @Test
     public void returnsThePendingToPayValueBasedOnRegion() throws Exception {
         KuantoRentaRequest body = new KuantoRentaRequest();
+        body.setYear(2018);
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));
@@ -56,6 +60,7 @@ public class KuantoRentaControllerTest {
     @Test
     public void returnsTheTotalRateOfTaxesPaidBasedOnRegion() throws Exception {
         KuantoRentaRequest body = new KuantoRentaRequest();
+        body.setYear(2018);
         body.setRegion("Madrid");
         body.setRevenue(new BigDecimal(40000));
         body.setExpenses(new BigDecimal(3000));

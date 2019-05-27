@@ -1,0 +1,33 @@
+version: "3.6"
+
+volumes:
+  kuanto-data:
+  pgadmin-data:
+
+services:
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 9001:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root
+      PGADMIN_DEFAULT_PASSWORD: root
+    depends_on:
+      - db
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+  db:
+    image: "postgres:11.1"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: kuanto
+      POSTGRES_PASSWORD: kuanto
+    command: ["-c", "max_connections=500"]
+    volumes:
+      - ./database/init-database.sql:/docker-entrypoint-initdb.d/init.sql
+#      - ./init-database.sh:/init-database.sh
+#      - ./scripts/initWirecardDatabase.sql:/scripts/initDatabase.sql
+      - kuanto-data:/var/lib/postgresql/data

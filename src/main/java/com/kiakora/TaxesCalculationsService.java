@@ -1,25 +1,19 @@
 package com.kiakora;
 
-import io.micronaut.context.ApplicationContext;
-import io.micronaut.inject.qualifiers.Qualifiers;
-
 import javax.inject.Singleton;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Singleton
 public class TaxesCalculationsService {
 
     public static final BigDecimal NOT_TAXABLE_VALUE = new BigDecimal(5550);
-    private final ApplicationContext applicationContext;
-    private final Collection<TaxTableConfiguration> taxTableConfigurations;
+    private final TaxTableConfiguration taxTableConfiguration;
 
-    public TaxesCalculationsService(ApplicationContext applicationContext, Collection<TaxTableConfiguration> taxTableConfigurations) {
-        this.taxTableConfigurations = taxTableConfigurations;
-        this.applicationContext = applicationContext;
+
+    public TaxesCalculationsService(TaxTableConfiguration taxTableConfiguration) {
+        this.taxTableConfiguration = taxTableConfiguration;
     }
 
     public KuantoRentaResponse calculate(KuantoRentaRequest request) {
@@ -37,12 +31,7 @@ public class TaxesCalculationsService {
     }
 
     private BigDecimal calculateFor(KuantoRentaRequest request, String region) {
-        Optional<TaxTableConfiguration> taxTableConfiguration = applicationContext.findBean(TaxTableConfiguration.class, Qualifiers.byName(region.toLowerCase()));
-
-        if (!taxTableConfiguration.isPresent()){
-            return new BigDecimal(0);
-        }
-        TaxTableConfiguration.TaxTable taxTable = taxTableConfiguration.get().getTaxTable();
+        TaxTableConfiguration.TaxTable taxTable = taxTableConfiguration.getTaxTableByYearAndRegion(request.getYear(), region);
         return calculateToPaidFor(taxTable, request.getNetAmountWithoutHardExpenses());
     }
 
@@ -51,7 +40,7 @@ public class TaxesCalculationsService {
         BigDecimal amount = netAmount;
         BigDecimal totalToPay = new BigDecimal(0);
         for(int i = 0; i < ranges.size(); i++){
-            Double range = ranges.get(i);
+            Double range = new Double(ranges.get(i));
             Double rangeLimit = range;
             if (i > 0){
                 rangeLimit = rangeLimit - ranges.get(i - 1);

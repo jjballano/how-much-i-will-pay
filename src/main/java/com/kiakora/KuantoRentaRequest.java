@@ -8,16 +8,18 @@ import java.math.BigDecimal;
 @Introspected
 public class KuantoRentaRequest implements Serializable {
 
+    private Integer year;
     private String region;
     private BigDecimal revenue;
     private BigDecimal expenses;
 
     public KuantoRentaRequest() {}
 
-    public KuantoRentaRequest(String region, BigDecimal revenue, BigDecimal expenses) {
+    public KuantoRentaRequest(Integer year, String region, BigDecimal revenue, BigDecimal expenses) {
         this.region = region;
         this.revenue = revenue;
         this.expenses = expenses;
+        this.year = year;
     }
 
     public String getRegion() {
@@ -50,6 +52,14 @@ public class KuantoRentaRequest implements Serializable {
 
     public BigDecimal getNetAmountWithoutHardExpenses(){
         return this.revenue.subtract(this.expenses).multiply(new BigDecimal(0.95));
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
     }
 }
 

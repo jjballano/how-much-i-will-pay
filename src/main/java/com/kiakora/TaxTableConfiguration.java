@@ -1,36 +1,58 @@
 package com.kiakora;
 
-import io.micronaut.context.annotation.EachProperty;
-import io.micronaut.context.annotation.Parameter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.inject.Singleton;
+import javax.sql.DataSource;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
-@EachProperty("irpf.tables.2018")
+@Singleton
 public class TaxTableConfiguration {
 
+    private final DataSource dataSource;
+
     private TaxTable taxTable;
-    private final String name;
 
-    public TaxTableConfiguration(@Parameter String name) {
-        this.name = name;
+    public TaxTableConfiguration(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public TaxTable getTaxTable() {
-        return taxTable;
-    }
-
-    public void setTaxTable(List<Map<Double, Double>> taxTable) {
-        this.taxTable = new TaxTable(taxTable);
+    public TaxTable getTaxTableByYearAndRegion(int year, String region){
+        ResultSet resultSet = null;
+        try (
+            Connection connection = this.dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("select values from irpf where region_id = ? and year = ?")
+        ){
+            preparedStatement.setString(1, region.toLowerCase());
+            preparedStatement.setInt(2, year);
+            resultSet = preparedStatement.executeQuery();
+            Map<String, Object> ranges = new LinkedHashMap<>();
+            if(resultSet.next()){
+                ranges = new ObjectMapper().readValue(resultSet.getString(1), Map.class);
+            }
+            return new TaxTable(ranges);
+        } catch (SQLException | IOException e){
+            return null;
+        } finally {
+            if (resultSet != null){
+                try { resultSet.close(); } catch (SQLException e) { }
+            }
+        }
     }
 
     static class TaxTable {
         private final Map<Double, Double> ranges;
 
-        public TaxTable(List<Map<Double, Double>> ranges) {
+        public TaxTable(Map<String, Object> ranges) {
             this.ranges = new TreeMap<>();
-            for(Map<Double, Double> range: ranges){
-                this.ranges.putIfAbsent(range.keySet().iterator().next(), range.values().iterator().next());
+            for(String range: ranges.keySet()){
+                this.ranges.putIfAbsent(Double.parseDouble(range), Double.parseDouble(ranges.get(range).toString()));
             }
         }
 
